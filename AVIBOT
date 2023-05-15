@@ -1,0 +1,62 @@
+import telegram
+import openai
+import time
+from telegram.ext import Updater
+
+# Replace with your own API tokens
+TELEGRAM_API_TOKEN = 'YOUR_TELEGRAM_API_TOKEN_HERE'
+OPENAI_API_SECRET_KEY = 'YOUR_OPENAI_API_SECRET_KEY_HERE'
+
+# Initialize the Telegram bot
+bot = telegram.Bot(token=TELEGRAM_API_TOKEN)
+
+# Initialize the OpenAI API client
+openai.api_key = OPENAI_API_SECRET_KEY
+
+# Define a function to generate a post about Aviator using the OpenAI API
+def generate_post():
+    prompt = "Write a post about $Aviator and hype it up."
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=1024,
+        n=1,
+        stop=None,
+    )import telegram
+import openai
+import time
+from telegram.ext import Updater
+
+# Replace with your own API tokens
+TELEGRAM_API_TOKEN = 'YOUR_TELEGRAM_API_TOKEN_HERE'
+OPENAI_API_SECRET_KEY = 'YOUR_OPENAI_API_SECRET_KEY_HERE'
+
+# Initialize the Telegram bot
+bot = telegram.Bot(token=TELEGRAM_API_TOKEN)
+
+# Initialize the OpenAI API client
+openai.api_key = OPENAI_API_SECRET_KEY
+
+# Define a function to generate a post about Aviator using the OpenAI API
+def generate_post():
+    prompt = "Write a post about $Aviator and hype it up."
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=1024,
+        n=1,
+        stop=None,
+    )
+    return response.choices[0].text
+
+# Define a function to send the generated post to the Telegram channel
+def send_post():
+    post = generate_post()
+    bot.send_message(chat_id='@YOUR_TELEGRAM_CHANNEL', text=post)
+
+# Set the bot to send a post every hour
+while True:
+    send_post()
+    time.sleep(3600)
